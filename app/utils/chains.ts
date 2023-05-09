@@ -1,4 +1,4 @@
-import { Chain, bscTestnet } from "wagmi/chains";
+import { Chain, bscTestnet, crossbell } from "wagmi/chains";
 import { stringToAddress } from "./converters";
 
 interface ChainConfig {
@@ -21,6 +21,7 @@ export function getSupportedChainConfigs(): ChainConfig[] {
     chainConfigs.push({
       chain: {
         ...bscTestnet,
+        name: "BSC Testnet",
         rpcUrls: {
           default: {
             http: ["https://data-seed-prebsc-1-s3.binance.org:8545"],
@@ -34,6 +35,18 @@ export function getSupportedChainConfigs(): ChainConfig[] {
         profile: process.env.NEXT_PUBLIC_BSC_TESTNET_PROFILE_CONTRACT_ADDRESS,
         challenge:
           process.env.NEXT_PUBLIC_BSC_TESTNET_CHALLENGE_CONTRACT_ADDRESS,
+      },
+    });
+  }
+  if (
+    process.env.NEXT_PUBLIC_CROSSBELL_PROFILE_CONTRACT_ADDRESS &&
+    process.env.NEXT_PUBLIC_CROSSBELL_CHALLENGE_CONTRACT_ADDRESS
+  ) {
+    chainConfigs.push({
+      chain: crossbell,
+      contractAddresses: {
+        profile: process.env.NEXT_PUBLIC_CROSSBELL_PROFILE_CONTRACT_ADDRESS,
+        challenge: process.env.NEXT_PUBLIC_CROSSBELL_CHALLENGE_CONTRACT_ADDRESS,
       },
     });
   }

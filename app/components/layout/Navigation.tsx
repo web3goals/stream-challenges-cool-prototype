@@ -16,7 +16,9 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { CONTACTS } from "constants/contacts";
 import Link from "next/link";
 import { useState } from "react";
-import { useAccount } from "wagmi";
+import { chainToSupportedChainId } from "utils/chains";
+import { useAccount, useNetwork } from "wagmi";
+import { crossbell } from "wagmi/chains";
 
 /**
  * Component with navigation.
@@ -44,8 +46,23 @@ function Logo(props: { sx?: SxProps }) {
   return (
     <Box sx={{ display: "flex", alignItems: "center", ...props.sx }}>
       <Link href="/" passHref legacyBehavior>
-        <MuiLink variant="h6" color="#000000" fontWeight={700}>
+        <MuiLink
+          variant="h6"
+          color="#000000"
+          fontWeight={700}
+          display={{ xs: "none", md: "flex" }}
+        >
           🏆 Stream Challenges
+        </MuiLink>
+      </Link>
+      <Link href="/" passHref legacyBehavior>
+        <MuiLink
+          variant="h6"
+          color="#000000"
+          fontWeight={700}
+          display={{ xs: "flex", md: "none" }}
+        >
+          🏆 SC
         </MuiLink>
       </Link>
     </Box>
@@ -53,21 +70,33 @@ function Logo(props: { sx?: SxProps }) {
 }
 
 function Links(props: { sx?: SxProps }) {
+  const { chain } = useNetwork();
   const { isConnected, address } = useAccount();
 
   return (
     <Box sx={{ display: "flex", alignItems: "center", ...props.sx }}>
-      {isConnected && (
-        <Link href={`/accounts/${address}`} passHref legacyBehavior>
+      {isConnected &&
+        (chainToSupportedChainId(chain) === crossbell.id ? (
           <MuiLink
+            href="https://xchar.app/"
+            target="_blank"
             fontWeight={700}
             color="inherit"
             display={{ xs: "none", sm: "flex" }}
           >
-            Account
+            Character
           </MuiLink>
-        </Link>
-      )}
+        ) : (
+          <Link href={`/accounts/${address}`} passHref legacyBehavior>
+            <MuiLink
+              fontWeight={700}
+              color="inherit"
+              display={{ xs: "none", sm: "flex" }}
+            >
+              Account
+            </MuiLink>
+          </Link>
+        ))}
       <Link href="/#challenge" passHref legacyBehavior>
         <MuiLink
           fontWeight={700}
