@@ -1,4 +1,4 @@
-import { Chain, filecoinHyperspace } from "wagmi/chains";
+import { Chain } from "wagmi/chains";
 import { stringToAddress } from "./converters";
 
 interface ChainConfig {
@@ -9,21 +9,51 @@ interface ChainConfig {
   };
 }
 
+const bscTestnet: Chain = {
+  id: 97,
+  name: "Binance Smart Chain Testnet",
+  network: "bsc-testnet",
+  nativeCurrency: {
+    decimals: 18,
+    name: "BNB",
+    symbol: "tBNB",
+  },
+  rpcUrls: {
+    default: {
+      http: ["https://data-seed-prebsc-1-s3.binance.org:8545"],
+    },
+    public: {
+      http: ["https://data-seed-prebsc-1-s3.binance.org:8545"],
+    },
+  },
+  blockExplorers: {
+    etherscan: {
+      name: "BscScan",
+      url: "https://testnet.bscscan.com",
+    },
+    default: {
+      name: "BscScan",
+      url: "https://testnet.bscscan.com",
+    },
+  },
+  testnet: true,
+};
+
 /**
  * Get chain configs defined by environment variables.
  */
 export function getSupportedChainConfigs(): ChainConfig[] {
   const chainConfigs: ChainConfig[] = [];
   if (
-    process.env.NEXT_PUBLIC_HYPERSPACE_PROFILE_CONTRACT_ADDRESS &&
-    process.env.NEXT_PUBLIC_HYPERSPACE_CHALLENGE_CONTRACT_ADDRESS
+    process.env.NEXT_PUBLIC_BSC_TESTNET_PROFILE_CONTRACT_ADDRESS &&
+    process.env.NEXT_PUBLIC_BSC_TESTNET_CHALLENGE_CONTRACT_ADDRESS
   ) {
     chainConfigs.push({
-      chain: filecoinHyperspace,
+      chain: bscTestnet,
       contractAddresses: {
-        profile: process.env.NEXT_PUBLIC_HYPERSPACE_PROFILE_CONTRACT_ADDRESS,
+        profile: process.env.NEXT_PUBLIC_BSC_TESTNET_PROFILE_CONTRACT_ADDRESS,
         challenge:
-          process.env.NEXT_PUBLIC_HYPERSPACE_CHALLENGE_CONTRACT_ADDRESS,
+          process.env.NEXT_PUBLIC_BSC_TESTNET_CHALLENGE_CONTRACT_ADDRESS,
       },
     });
   }
