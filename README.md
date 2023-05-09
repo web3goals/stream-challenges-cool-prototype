@@ -6,6 +6,14 @@ Today, it's hard for a beginner blogger to stand out and get an audience. To sol
 
 Stream Challenges is an application where people have to stream every day at a random time.
 
+## How it works (BSC)
+
+...
+
+## How it works (Crossbell)
+
+...
+
 ## 🔗 Links
 
 - [Application](https://stream-challenges-app.vercel.app/)
