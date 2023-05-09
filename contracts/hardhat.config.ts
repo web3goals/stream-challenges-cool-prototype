@@ -24,15 +24,15 @@ const config: HardhatUserConfig = {
     },
   },
   networks: {
-    hyperspace: {
-      chainId: 3141,
-      url: process.env.RPC_URL_HYPERSPACE || "",
+    bscTestnet: {
+      chainId: 97,
+      url: process.env.RPC_URL_BSC_TESTNET || "",
       accounts: accounts,
     },
-    filecoin: {
-      chainId: 314,
-      url: process.env.RPC_URL_FILECOIN || "",
-      accounts: accounts,
+  },
+  etherscan: {
+    apiKey: {
+      bscTestnet: process.env.ETHERSCAN_API_KEY_BSC_TESTNET || "",
     },
   },
 };

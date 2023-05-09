@@ -13,20 +13,20 @@ export const contracts: {
     challenge: DeployedContract;
   };
 } = {
-  hyperspace: {
+  bscTestnet: {
     profile: {
       name: "Profile",
       isUpgreadable: false,
       isInitializable: true,
-      proxy: "0x0197249adA3c806E7c0029651e10defD2572C8cc",
-      impl: "0x0197249adA3c806E7c0029651e10defD2572C8cc",
+      proxy: "0xaAFFe298AbE153b4B72a55BDa224F83dB6748339",
+      impl: "0xaAFFe298AbE153b4B72a55BDa224F83dB6748339",
     },
     challenge: {
       name: "Challenge",
       isUpgreadable: false,
       isInitializable: true,
-      proxy: "0x6Dde174788fCA1115819A1c3470AE5B359ac01C9",
-      impl: "0x6Dde174788fCA1115819A1c3470AE5B359ac01C9",
+      proxy: "0x48c33f2B2960877cBDe2cD55e97A302C8c0F5504",
+      impl: "0x48c33f2B2960877cBDe2cD55e97A302C8c0F5504",
     },
   },
 };

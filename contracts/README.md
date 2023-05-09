@@ -4,9 +4,9 @@
 - Clean project - `npx hardhat clean`
 - Compile contracts and generate TypeChain - `npx hardhat compile`
 - Run tests - `npx hardhat test`
-- Deploy contracts - `npx hardhat run scripts/deploy/index.ts --network hyperspace`
-- Run sandbox script - `npx hardhat run scripts/sandbox.ts --network hyperspace`
+- Deploy contracts - `npx hardhat run scripts/deploy/index.ts --network bscTestnet`
+- Run sandbox script - `npx hardhat run scripts/sandbox.ts --network bscTestnet`
 
 ## Links
 
-- Hyperspace explorer - https://hyperspace.filfox.info/en
+- BSC testnet explorer https://testnet.bscscan.com/
