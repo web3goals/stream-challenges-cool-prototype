@@ -1,4 +1,4 @@
-import { Box, SxProps, Typography } from "@mui/material";
+import { Box, Stack, SxProps, Typography } from "@mui/material";
 import EntityList from "components/entity/EntityList";
 import Layout from "components/layout";
 import StreamCard from "components/stream/StreamCard";
@@ -8,16 +8,23 @@ import {
   LargeLoadingButton,
   ThickDivider,
 } from "components/styled";
+import { CROSSBELL } from "constants/crossbell";
 import { challengeContractAbi } from "contracts/abi/challengeContract";
+import CrossbellChallengeEntity from "entities/CrossbellChallengeEntity";
+import useError from "hooks/useError";
 import useToasts from "hooks/useToast";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   chainToSupportedChainChallengeContractAddress,
   chainToSupportedChainId,
 } from "utils/chains";
-import { bigNumberTimestampToLocaleString } from "utils/converters";
+import {
+  bigNumberTimestampToLocaleString,
+  timestampToLocaleString,
+} from "utils/converters";
+import { getLastCrossbellChallenge } from "utils/crossbell";
 import {
   useContractRead,
   useContractWrite,
@@ -25,16 +32,23 @@ import {
   usePrepareContractWrite,
   useWaitForTransaction,
 } from "wagmi";
+import { crossbell } from "wagmi/chains";
 
 /**
  * Landing page.
  */
 export default function Landing() {
+  const { chain } = useNetwork();
+
   return (
     <Layout maxWidth="md">
       <Header />
       <ThickDivider sx={{ mt: 8, mb: 8 }} />
-      <Challenge />
+      {chainToSupportedChainId(chain) === crossbell.id ? (
+        <ChallengeCrossbell />
+      ) : (
+        <Challenge />
+      )}
     </Layout>
   );
 }
@@ -243,5 +257,111 @@ function ChallengeStreams(props: { sx?: SxProps }) {
       noEntitiesText="😐 no streams"
       sx={{ ...props.sx }}
     />
+  );
+}
+
+function ChallengeCrossbell(props: { sx?: SxProps }) {
+  const [challenge, setChallenge] = useState<
+    undefined | CrossbellChallengeEntity
+  >();
+  const { handleError } = useError();
+
+  useEffect(() => {
+    getLastCrossbellChallenge()
+      .then((challenge) => setChallenge(challenge))
+      .catch((error) => handleError(error, true));
+  }, []);
+
+  return (
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      sx={{ ...props.sx }}
+    >
+      <Box
+        id="challenge"
+        component="a"
+        sx={{
+          display: "block",
+          position: "relative",
+          top: "-98px",
+          visibility: "hidden",
+        }}
+      />
+      <Typography variant="h4" fontWeight={700} textAlign="center">
+        🏆 Challenge
+      </Typography>
+      {challenge ? (
+        challenge.isActive ? (
+          <ChallengeCrossbellActive challenge={challenge} sx={{ mt: 1 }} />
+        ) : (
+          <ChallengeCrossbelNotActive challenge={challenge} sx={{ mt: 1 }} />
+        )
+      ) : (
+        <FullWidthSkeleton sx={{ mt: 1 }} />
+      )}
+    </Box>
+  );
+}
+
+function ChallengeCrossbelNotActive(props: {
+  challenge: CrossbellChallengeEntity;
+  sx?: SxProps;
+}) {
+  return (
+    <>
+      <Typography
+        color="text.secondary"
+        textAlign="center"
+        sx={{ maxWidth: 480, ...props.sx }}
+      >
+        is not yet started, but you can start following the project account to
+        be notified when the challenge starts
+      </Typography>
+      <LargeLoadingButton
+        href={`https://crossbell.io/@${CROSSBELL.characterHandle}`}
+        target="_blank"
+        variant="outlined"
+        sx={{ mt: 2 }}
+      >
+        Open account
+      </LargeLoadingButton>
+    </>
+  );
+}
+
+function ChallengeCrossbellActive(props: {
+  challenge: CrossbellChallengeEntity;
+  sx?: SxProps;
+}) {
+  return (
+    <>
+      <Typography
+        color="text.secondary"
+        textAlign="center"
+        sx={{ ...props.sx }}
+      >
+        is started and will be ended on{" "}
+        {timestampToLocaleString(
+          props.challenge.startedTimestamp + CROSSBELL.challengeDurationMs,
+          true
+        )}
+      </Typography>
+      <Stack spacing={2} mt={4}>
+        <Link href="/streams/start" passHref legacyBehavior>
+          <LargeLoadingButton variant="contained">
+            Participate
+          </LargeLoadingButton>
+        </Link>
+        <LargeLoadingButton
+          href={`https://crossbell.io/notes/${CROSSBELL.characterId}-${props.challenge.id}`}
+          target="_blank"
+          variant="outlined"
+        >
+          Watch participants
+        </LargeLoadingButton>
+      </Stack>
+    </>
   );
 }
