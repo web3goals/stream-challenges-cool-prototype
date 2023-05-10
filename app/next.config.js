@@ -25,7 +25,7 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ["w3s.link", "gateway.lighthouse.storage"],
+    domains: ["w3s.link", "gateway.lighthouse.storage", "crossbell.io"],
   },
 };
 
