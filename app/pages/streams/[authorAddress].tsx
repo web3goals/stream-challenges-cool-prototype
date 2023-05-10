@@ -26,7 +26,7 @@ import { useAccount, useContractRead, useNetwork } from "wagmi";
  */
 export default function Stream() {
   const router = useRouter();
-  const { slug } = router.query;
+  const { authorAddress } = router.query;
   const { chain } = useNetwork();
   const { joinLobby, isLobbyJoined } = useLobby();
   const { isRoomJoined } = useRoom();
@@ -35,7 +35,9 @@ export default function Stream() {
     address: chainToSupportedChainChallengeContractAddress(chain),
     abi: challengeContractAbi,
     functionName: "getLastChallengeStreamByAuthorAddress",
-    args: [stringToAddress(slug as string) || ethers.constants.AddressZero],
+    args: [
+      stringToAddress(authorAddress as string) || ethers.constants.AddressZero,
+    ],
   });
 
   // Join lobby when stream data is loaded.
