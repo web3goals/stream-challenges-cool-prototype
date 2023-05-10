@@ -45,7 +45,7 @@ export default function Landing() {
       <Header />
       <ThickDivider sx={{ mt: 8, mb: 8 }} />
       {chainToSupportedChainId(chain) === crossbell.id ? (
-        <ChallengeCrossbell />
+        <CrossbellChallenge />
       ) : (
         <Challenge />
       )}
@@ -260,11 +260,11 @@ function ChallengeStreams(props: { sx?: SxProps }) {
   );
 }
 
-function ChallengeCrossbell(props: { sx?: SxProps }) {
-  const [challenge, setChallenge] = useState<
-    undefined | CrossbellChallengeEntity
-  >();
+function CrossbellChallenge(props: { sx?: SxProps }) {
   const { handleError } = useError();
+  const [challenge, setChallenge] = useState<
+    CrossbellChallengeEntity | null | undefined
+  >();
 
   useEffect(() => {
     getLastCrossbellChallenge()
@@ -294,9 +294,9 @@ function ChallengeCrossbell(props: { sx?: SxProps }) {
       </Typography>
       {challenge ? (
         challenge.isActive ? (
-          <ChallengeCrossbellActive challenge={challenge} sx={{ mt: 1 }} />
+          <CrossbellChallengeActive challenge={challenge} sx={{ mt: 1 }} />
         ) : (
-          <ChallengeCrossbelNotActive challenge={challenge} sx={{ mt: 1 }} />
+          <CrossbellChallengeNotActive challenge={challenge} sx={{ mt: 1 }} />
         )
       ) : (
         <FullWidthSkeleton sx={{ mt: 1 }} />
@@ -305,7 +305,7 @@ function ChallengeCrossbell(props: { sx?: SxProps }) {
   );
 }
 
-function ChallengeCrossbelNotActive(props: {
+function CrossbellChallengeNotActive(props: {
   challenge: CrossbellChallengeEntity;
   sx?: SxProps;
 }) {
@@ -320,7 +320,7 @@ function ChallengeCrossbelNotActive(props: {
         be notified when the challenge starts
       </Typography>
       <LargeLoadingButton
-        href={`https://crossbell.io/@${CROSSBELL.characterHandle}`}
+        href={`https://crossbell.io/@${CROSSBELL.challengeAuthorCharacterHandle}`}
         target="_blank"
         variant="outlined"
         sx={{ mt: 2 }}
@@ -331,7 +331,7 @@ function ChallengeCrossbelNotActive(props: {
   );
 }
 
-function ChallengeCrossbellActive(props: {
+function CrossbellChallengeActive(props: {
   challenge: CrossbellChallengeEntity;
   sx?: SxProps;
 }) {
@@ -348,14 +348,14 @@ function ChallengeCrossbellActive(props: {
           true
         )}
       </Typography>
-      <Stack spacing={2} mt={4}>
-        <Link href="/streams/start" passHref legacyBehavior>
+      <Stack spacing={2} mt={2}>
+        <Link href="/streams/crossbell/start" passHref legacyBehavior>
           <LargeLoadingButton variant="contained">
             Participate
           </LargeLoadingButton>
         </Link>
         <LargeLoadingButton
-          href={`https://crossbell.io/notes/${CROSSBELL.characterId}-${props.challenge.id}`}
+          href={`https://crossbell.io/notes/${CROSSBELL.challengeAuthorCharacterId}-${props.challenge.id}`}
           target="_blank"
           variant="outlined"
         >
