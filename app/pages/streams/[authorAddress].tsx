@@ -36,7 +36,8 @@ export default function Stream() {
     abi: challengeContractAbi,
     functionName: "getLastChallengeStreamByAuthorAddress",
     args: [
-      stringToAddress(authorAddress as string) || ethers.constants.AddressZero,
+      stringToAddress(authorAddress?.toString()) ||
+        ethers.constants.AddressZero,
     ],
   });
 
