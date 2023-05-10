@@ -1,12 +1,14 @@
 import { useLobby, useRoom } from "@huddle01/react/hooks";
 import Layout from "components/layout";
+import CrossbellStreamFinishDialog from "components/stream/crossbell/CrossbellStreamFinishDialog";
 import StreamLobby from "components/stream/StreamLobby";
 import StreamRoom from "components/stream/StreamRoom";
 import { FullWidthSkeleton } from "components/styled";
+import { DialogContext } from "context/dialog";
 import CrossbellStreamEntity from "entities/CrossbellStreamEntity";
 import useError from "hooks/useError";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getLastCrossbellChallengeStreamById } from "utils/crossbell";
 
 /**
@@ -15,6 +17,7 @@ import { getLastCrossbellChallengeStreamById } from "utils/crossbell";
 export default function CrossbellStream() {
   const router = useRouter();
   const { roomId } = router.query;
+  const { closeDialog } = useContext(DialogContext);
   const { handleError } = useError();
   const { joinLobby, isLobbyJoined } = useLobby();
   const { isRoomJoined } = useRoom();
@@ -41,9 +44,15 @@ export default function CrossbellStream() {
       {isRoomJoined ? (
         <StreamRoom
           id={stream?.id}
-          authorAddress={stream?.author}
+          authorAddress={stream?.authorAddress}
           description={stream?.description}
-          isCrossbell={true}
+          finishDialog={
+            <CrossbellStreamFinishDialog
+              stream={stream!}
+              onSuccess={() => router.push("/leaderboard")}
+              onClose={closeDialog}
+            />
+          }
         />
       ) : isLobbyJoined ? (
         <StreamLobby />

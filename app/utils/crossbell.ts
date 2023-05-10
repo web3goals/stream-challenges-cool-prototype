@@ -39,7 +39,9 @@ export async function getLastCrossbellChallengeStreamById(
     if (note.metadata.content.content.includes(id)) {
       return {
         id: id,
-        author: note.owner,
+        challengeId: note.toNote.noteId,
+        authorAddress: note.owner,
+        authorCharacterId: note.characterId,
         description: note.metadata.content.content.match(/"(.*?)"/)[1],
       };
     }

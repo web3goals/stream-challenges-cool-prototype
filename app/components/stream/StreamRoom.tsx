@@ -4,12 +4,9 @@ import { usePeers, useRecording, useVideo } from "@huddle01/react/hooks";
 import { Box, Stack, Typography } from "@mui/material";
 import { LargeLoadingButton } from "components/styled";
 import { DialogContext } from "context/dialog";
-import { useRouter } from "next/router";
 import { useContext, useEffect, useRef } from "react";
 import { isAddressesEqual } from "utils/addresses";
 import { useAccount } from "wagmi";
-import CrossbellStreamFinishDialog from "./crossbell/CrossbellStreamFinishDialog";
-import StreamFinishDialog from "./StreamFinishDialog";
 
 /**
  * A component with a stream room.
@@ -18,11 +15,11 @@ export default function StreamRoom(props: {
   id?: string;
   description?: string;
   authorAddress?: string;
-  isCrossbell?: boolean;
+  finishDialog?: any;
 }) {
-  const { showDialog, closeDialog } = useContext(DialogContext);
+  const { showDialog } = useContext(DialogContext);
   const { address } = useAccount();
-  const { push } = useRouter();
+
   const { produceVideo, stopProducingVideo, stream: videoStream } = useVideo();
   const { peers } = usePeers();
   const {
@@ -100,21 +97,7 @@ export default function StreamRoom(props: {
         {isAddressesEqual(address, props.authorAddress) && (
           <LargeLoadingButton
             variant="contained"
-            onClick={() =>
-              props.isCrossbell
-                ? showDialog?.(
-                    <CrossbellStreamFinishDialog
-                      onSuccess={() => push("/leaderboard")}
-                      onClose={closeDialog}
-                    />
-                  )
-                : showDialog?.(
-                    <StreamFinishDialog
-                      onSuccess={() => push("/leaderboard")}
-                      onClose={closeDialog}
-                    />
-                  )
-            }
+            onClick={() => showDialog?.(props.finishDialog)}
           >
             Finish stream
           </LargeLoadingButton>

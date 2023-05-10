@@ -178,7 +178,9 @@ function StartCrossbellStreamForm(props: {
       const noteData: CrossbellNoteUriDataEntity = {
         tags: ["stream-challenges-app.vercel.app"],
         type: "note",
-        content: `I started stream \"${values.description}\", please join:\n\n🔗 ${streamUrl}`,
+        content:
+          `I started the stream \"${values.description}\"` +
+          `, please [**join**](${streamUrl}) 🚀`,
         external_urls: [streamUrl],
         sources: ["stream-challenges-app.vercel.app"],
       };
