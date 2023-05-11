@@ -10,14 +10,14 @@ Stream Challenges is an application where people have to stream every day at a r
 
 ### BNB Smart Chain (BSC)
 
-1. Connect wallet, create a profile on your account page and enable notifications.
+1. Connect wallet, create a profile on your account page and enable notifications to be notified when the challenge starts.
 2. Get a notification at a random time and start a video stream.
 3. Interact with the audience and finish the stream by uploading the recording.
 4. Earn points for each finished stream to get on the leaderboard and reach a bigger audience.
 
 ### Crossbell
 
-1. Connect wallet and follow the project account on Crossbell to be notified about challenge started.
+1. Connect wallet and follow the project account on Crossbell to be notified when the challenge starts.
 2. Get a notification at a random time and start a video stream.
 3. Interact with the audience and finish the stream by uploading the recording.
 4. Earn points for each finished stream to get on the and reach a bigger audience.

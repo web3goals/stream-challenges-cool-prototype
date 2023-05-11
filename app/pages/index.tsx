@@ -144,7 +144,7 @@ function HowItWorks(props: { sx?: SxProps }) {
             1
           </Avatar>
           {chainToSupportedChainId(chain) === crossbell.id ? (
-            <Typography color="text.secondary" textAlign="center">
+            <Typography color="text.secondary">
               Connect wallet and follow the project account on{" "}
               <MuiLink
                 href={`https://crossbell.io/@${CROSSBELL.challengeAuthorCharacterHandle}`}
@@ -152,12 +152,12 @@ function HowItWorks(props: { sx?: SxProps }) {
               >
                 Crossbell
               </MuiLink>{" "}
-              to be notified about challenge started
+              to be notified when the challenge starts
             </Typography>
           ) : (
-            <Typography color="text.secondary" textAlign="center">
+            <Typography color="text.secondary">
               Connect wallet, create a profile on your account page and enable
-              notifications
+              notifications to be notified when the challenge starts
             </Typography>
           )}
         </Stack>
@@ -173,7 +173,7 @@ function HowItWorks(props: { sx?: SxProps }) {
           >
             2
           </Avatar>
-          <Typography color="text.secondary" textAlign="center">
+          <Typography color="text.secondary">
             Get a notification at a random time and{" "}
             <Link href="/#challenge" passHref legacyBehavior>
               <MuiLink>start</MuiLink>
@@ -193,7 +193,7 @@ function HowItWorks(props: { sx?: SxProps }) {
           >
             3
           </Avatar>
-          <Typography color="text.secondary" textAlign="center">
+          <Typography color="text.secondary">
             Interact with the audience and finish the stream by uploading the
             recording
           </Typography>
@@ -210,7 +210,7 @@ function HowItWorks(props: { sx?: SxProps }) {
           >
             4
           </Avatar>
-          <Typography color="text.secondary" textAlign="center">
+          <Typography color="text.secondary">
             Earn points for each finished stream to get on the{" "}
             <Link href="/leaderboard" passHref legacyBehavior>
               <MuiLink>leaderboard</MuiLink>
