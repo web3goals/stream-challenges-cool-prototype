@@ -1,4 +1,11 @@
-import { Box, Stack, SxProps, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Stack,
+  SxProps,
+  Typography,
+  Link as MuiLink,
+} from "@mui/material";
 import EntityList from "components/entity/EntityList";
 import Layout from "components/layout";
 import StreamCard from "components/stream/StreamCard";
@@ -16,6 +23,7 @@ import useToasts from "hooks/useToast";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { palette } from "theme/palette";
 import {
   chainToSupportedChainChallengeContractAddress,
   chainToSupportedChainId,
@@ -43,6 +51,8 @@ export default function Landing() {
   return (
     <Layout maxWidth="md">
       <Header />
+      <ThickDivider sx={{ mt: 8, mb: 8 }} />
+      <HowItWorks />
       <ThickDivider sx={{ mt: 8, mb: 8 }} />
       {chainToSupportedChainId(chain) === crossbell.id ? (
         <CrossbellChallenge />
@@ -75,10 +85,10 @@ function Header(props: { sx?: SxProps }) {
       </Typography>
       <ExtraLargeLoadingButton
         variant="contained"
-        href="/#challenge"
+        href="/#how-it-works"
         sx={{ mt: 4 }}
       >
-        Go to challenge
+        Learn more
       </ExtraLargeLoadingButton>
       <Box width={{ xs: "100%", md: "85%" }} mt={{ xs: 4, md: 8 }}>
         <Image
@@ -93,6 +103,122 @@ function Header(props: { sx?: SxProps }) {
           }}
         />
       </Box>
+    </Box>
+  );
+}
+
+function HowItWorks(props: { sx?: SxProps }) {
+  const { chain } = useNetwork();
+
+  return (
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      sx={{ ...props.sx }}
+    >
+      <Box
+        id="how-it-works"
+        component="a"
+        sx={{
+          display: "block",
+          position: "relative",
+          top: "-98px",
+          visibility: "hidden",
+        }}
+      />
+      <Typography variant="h4" fontWeight={700} textAlign="center">
+        ⚡ How it works
+      </Typography>
+      <Stack direction="column" spacing={2} mt={2}>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <Avatar
+            sx={{
+              background: palette.purpleDark,
+              width: 32,
+              height: 32,
+              fontSize: 18,
+              fontWeight: 700,
+            }}
+          >
+            1
+          </Avatar>
+          {chainToSupportedChainId(chain) === crossbell.id ? (
+            <Typography color="text.secondary" textAlign="center">
+              Connect wallet and follow the project account on{" "}
+              <MuiLink
+                href={`https://crossbell.io/@${CROSSBELL.challengeAuthorCharacterHandle}`}
+                target="_blank"
+              >
+                Crossbell
+              </MuiLink>{" "}
+              to be notified about challenge started
+            </Typography>
+          ) : (
+            <Typography color="text.secondary" textAlign="center">
+              Connect wallet, create a profile on your account page and enable
+              notifications
+            </Typography>
+          )}
+        </Stack>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <Avatar
+            sx={{
+              background: palette.purpleLight,
+              width: 32,
+              height: 32,
+              fontSize: 18,
+              fontWeight: 700,
+            }}
+          >
+            2
+          </Avatar>
+          <Typography color="text.secondary" textAlign="center">
+            Get a notification at a random time and{" "}
+            <Link href="/#challenge" passHref legacyBehavior>
+              <MuiLink>start</MuiLink>
+            </Link>{" "}
+            a video stream
+          </Typography>
+        </Stack>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <Avatar
+            sx={{
+              background: palette.green,
+              width: 32,
+              height: 32,
+              fontSize: 18,
+              fontWeight: 700,
+            }}
+          >
+            3
+          </Avatar>
+          <Typography color="text.secondary" textAlign="center">
+            Interact with the audience and finish the stream by uploading the
+            recording
+          </Typography>
+        </Stack>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <Avatar
+            sx={{
+              background: palette.orange,
+              width: 32,
+              height: 32,
+              fontSize: 18,
+              fontWeight: 700,
+            }}
+          >
+            4
+          </Avatar>
+          <Typography color="text.secondary" textAlign="center">
+            Earn points for each finished stream to get on the{" "}
+            <Link href="/leaderboard" passHref legacyBehavior>
+              <MuiLink>leaderboard</MuiLink>
+            </Link>{" "}
+            and reach a bigger audience
+          </Typography>
+        </Stack>
+      </Stack>
     </Box>
   );
 }
