@@ -28,8 +28,9 @@ Stream Challenges is an application where people have to stream every day at a r
 
 ## ⚒️ Technologies
 
+- BNB Smart Chain (BSC)
+- Crossbell
 - Huddle01
-- FVM
 - Lighthouse
 - Solidity
 - TypeScript
@@ -37,3 +38,7 @@ Stream Challenges is an application where people have to stream every day at a r
 - React
 - Next.js
 - wagmi
+
+## Architecture
+
+![Architecture](architecture.png)
