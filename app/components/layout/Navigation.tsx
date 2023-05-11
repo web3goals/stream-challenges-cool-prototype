@@ -78,7 +78,7 @@ function Links(props: { sx?: SxProps }) {
       {isConnected &&
         (chainToSupportedChainId(chain) === crossbell.id ? (
           <MuiLink
-            href="https://xchar.app/"
+            href="https://crossbell.io/wallet/characters"
             target="_blank"
             fontWeight={700}
             color="inherit"

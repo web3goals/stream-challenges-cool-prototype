@@ -91,7 +91,7 @@ function StartCrossbellStreamRequireCharacter() {
         Crossbell
       </Typography>
       <LargeLoadingButton
-        href="https://xchar.app/"
+        href="https://crossbell.io/wallet/characters"
         target="_blank"
         variant="outlined"
         sx={{ mt: 2 }}
