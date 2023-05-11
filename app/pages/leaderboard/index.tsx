@@ -80,8 +80,6 @@ function CrossbellLeaderboardStreamers() {
       .catch((error) => handleError(error, true));
   }, []);
 
-  console.log(streamers);
-
   return (
     <EntityList
       entities={
