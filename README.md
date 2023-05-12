@@ -24,7 +24,7 @@ Stream Challenges is an application where people have to stream every day at a r
 
 ## 🔗 Links
 
-- [Application](https://stream-challenges-app.vercel.app/)
+- [Application](https://stream-challenges-cool-app.vercel.app/)
 
 ## ⚒️ Technologies
 

@@ -1,5 +1,5 @@
 {
-  "name": "stream-challenges-contracts",
+  "name": "stream-challenges-cool-contracts",
   "version": "0.1",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.0",

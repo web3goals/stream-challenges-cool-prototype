@@ -128,13 +128,13 @@ export default function CrossbellStreamFinishDialog(props: {
       }
       const { uri: recordingUri } = await uploadFileToIpfs(recording.file);
       const noteData: CrossbellNoteUriDataEntity = {
-        tags: ["stream-challenges-app.vercel.app"],
+        tags: ["stream-challenges-cool-app.vercel.app"],
         type: "note",
         content:
           `I finished the stream \"${props.stream.description}\"` +
           `, look at the [**recording**](${ipfsUriToHttpUri(recordingUri)}) 👀`,
         external_urls: [recordingUri],
-        sources: ["stream-challenges-app.vercel.app"],
+        sources: ["stream-challenges-cool-app.vercel.app"],
       };
       const { uri: noteDataUri } = await uploadJsonToIpfs(noteData);
       setUploadedCrossbellNoteDataUri(noteDataUri);

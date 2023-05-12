@@ -174,15 +174,15 @@ function StartCrossbellStreamForm(props: {
   async function uploadData(values: any) {
     try {
       setIsDataUploading(true);
-      const streamUrl = `https://stream-challenges-app.vercel.app/streams/crossbell/${streamRoomId}`;
+      const streamUrl = `https://stream-challenges-cool-app.vercel.app/streams/crossbell/${streamRoomId}`;
       const noteData: CrossbellNoteUriDataEntity = {
-        tags: ["stream-challenges-app.vercel.app"],
+        tags: ["stream-challenges-cool-app.vercel.app"],
         type: "note",
         content:
           `I started the stream \"${values.description}\"` +
           `, please [**join**](${streamUrl}) 🚀`,
         external_urls: [streamUrl],
-        sources: ["stream-challenges-app.vercel.app"],
+        sources: ["stream-challenges-cool-app.vercel.app"],
       };
       const { uri: noteDataUri } = await uploadJsonToIpfs(noteData);
       setUploadedCrossbellNoteDataUri(noteDataUri);
